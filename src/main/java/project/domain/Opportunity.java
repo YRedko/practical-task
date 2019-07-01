@@ -1,21 +1,42 @@
 package project.domain;
 
-import java.time.LocalDate;
+import project.domain.enums.OpportunityType;
 
+import javax.persistence.*;
+import java.util.Date;
+
+@Entity
 public class Opportunity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String description;
-    private OpportunityTypeEnum type;
+    @Column(name = "opportunity_type", columnDefinition = "enum('POTENTIAL','LEAD','CLOSER')")
+    @Enumerated(EnumType.STRING)
+    private OpportunityType type;
     private float probability;
     private String project;
+    @ManyToOne
     private Employee sales;
-    private LocalDate start;
-    private LocalDate end;
+    private Date start;
+    @Column(name = "end_date")
+    private Date end;
 
     public Opportunity(){}
 
-    public Opportunity(String name, String description, OpportunityTypeEnum type, float probability, String project, Employee sales, LocalDate start, LocalDate end) {
+    public Opportunity(String name, String description, OpportunityType type, float probability, String project, Date start, Date end) {
+        this.name = name;
+        this.description = description;
+        this.type = type;
+        this.probability = probability;
+        this.project = project;
+        this.start = start;
+        this.end = end;
+    }
+
+    public Opportunity(String name, String description, OpportunityType type, float probability, String project, Employee sales, Date start, Date end) {
         this.name = name;
         this.description = description;
         this.type = type;
@@ -24,6 +45,14 @@ public class Opportunity {
         this.sales = sales;
         this.start = start;
         this.end = end;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -42,9 +71,9 @@ public class Opportunity {
         this.description = description;
     }
 
-    public OpportunityTypeEnum getType() { return type; }
+    public OpportunityType getType() { return type; }
 
-    public void setType(OpportunityTypeEnum type) { this.type = type; }
+    public void setType(OpportunityType type) { this.type = type; }
 
     public float getProbability() {
         return probability;
@@ -70,19 +99,19 @@ public class Opportunity {
         this.sales = sales;
     }
 
-    public LocalDate getStart() {
+    public Date getStart() {
         return start;
     }
 
-    public void setStart(LocalDate start) {
+    public void setStart(Date start) {
         this.start = start;
     }
 
-    public LocalDate getEnd() {
+    public Date getEnd() {
         return end;
     }
 
-    public void setEnd(LocalDate end) {
+    public void setEnd(Date end) {
         this.end = end;
     }
 }

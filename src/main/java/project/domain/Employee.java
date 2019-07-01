@@ -1,21 +1,29 @@
 package project.domain;
 
-import java.time.LocalDate;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.util.Date;
 
+@Entity
 public class Employee {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String fullName;
     private String passwordHash;
-    private LocalDate dateOfBirth;
+    private Date dateOfBirth;
     private String sex;
     private String nationality;
     private String workLocation;
     private String currentPosition;
-    private LocalDate startYearOfProfessionalExperience;
+    private Date startYearOfProfessionalExperience;
 
     public Employee(){}
 
-    public Employee(String fullName, String passwordHash, LocalDate dateOfBirth, String sex, String nationality, String workLocation, String currentPosition, LocalDate startYearOfProfessionalExperience) {
+    public Employee(String fullName, String passwordHash, Date dateOfBirth, String sex, String nationality, String workLocation, String currentPosition, Date startYearOfProfessionalExperience) {
         this.fullName = fullName;
         this.passwordHash = passwordHash;
         this.dateOfBirth = dateOfBirth;
@@ -24,6 +32,14 @@ public class Employee {
         this.workLocation = workLocation;
         this.currentPosition = currentPosition;
         this.startYearOfProfessionalExperience = startYearOfProfessionalExperience;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFullName() {
@@ -42,11 +58,11 @@ public class Employee {
         this.passwordHash = passwordHash;
     }
 
-    public LocalDate getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -82,11 +98,11 @@ public class Employee {
         this.currentPosition = currentPosition;
     }
 
-    public LocalDate getStartYearOfProfessionalExperience() {
+    public Date getStartYearOfProfessionalExperience() {
         return startYearOfProfessionalExperience;
     }
 
-    public void setStartYearOfProfessionalExperience(LocalDate startYearOfProfessionalExperience) {
+    public void setStartYearOfProfessionalExperience(Date startYearOfProfessionalExperience) {
         this.startYearOfProfessionalExperience = startYearOfProfessionalExperience;
     }
 }

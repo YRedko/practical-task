@@ -1,41 +1,31 @@
-package project.domain;
+package project.domain.dto;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-@Entity
-public class Client {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class ClientDto {
+    @NotNull
+    @Size(min = 2, max = 20)
     private String name;
+    @NotNull
+    @Size(min = 2, max = 20)
     private String contactName;
+    @NotNull
+    @Size(min = 2, max = 30)
     private String contactEmail;
+    @Size(min = 2, max = 20)
     private String contactPhone;
+    @Size(min = 2, max = 255)
     private String contactDetail;
 
-    public Client(){}
+    public ClientDto(){}
 
-    public Client(String name, String contactName, String contactEmail){
-        this.name = name;
-        this.contactName = contactName;
-        this.contactEmail = contactEmail;
-    }
-
-    public Client(String name, String contactName, String contactEmail, String contactPhone, String contactDetail) {
+    public ClientDto(String name, String contactName, String contactEmail, String contactPhone, String contactDetail) {
         this.name = name;
         this.contactName = contactName;
         this.contactEmail = contactEmail;
         this.contactPhone = contactPhone;
         this.contactDetail = contactDetail;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {

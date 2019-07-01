@@ -1,0 +1,110 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: yredko
+      changes:
+        - createTable:
+            tableName: employee
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: full_name
+                  type: varchar(255)
+              - column:
+                  name: password_hash
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: date_of_birth
+                  type: date
+              - column:
+                  name: sex
+                  type: varchar(255)
+              - column:
+                  name: nationality
+                  type: varchar(255)
+              - column:
+                  name: work_location
+                  type: varchar(255)
+              - column:
+                  name: current_position
+                  type: varchar(255)
+              - column:
+                  name: start_year_of_professional_experience
+                  type: date
+        - createTable:
+            tableName: client
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: contact_name
+                  type: varchar(255)
+              - column:
+                  name: contact_email
+                  type: varchar(255)
+              - column:
+                  name: contact_phone
+                  type: varchar(255)
+              - column:
+                  name: contact_detail
+                  type: varchar(255)
+        - createTable:
+            tableName: opportunity
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(255)
+              - column:
+                  name: opportunity_type
+                  type: varchar(255)
+              - column:
+                  name: probability
+                  type: float
+              - column:
+                  name: project
+                  type: varchar(255)
+              - column:
+                  name: sales_id
+                  type: bigint
+              - column:
+                  name: start
+                  type: date
+              - column:
+                  name: end
+                  type: date
+        - addForeignKeyConstraint:
+            baseColumnNames: sales_id
+            baseTableName: opportunity
+            constraintName: fk_opportunity_employee
+            referencedColumnNames: id
+            referencedTableName: employee

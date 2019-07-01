@@ -1,25 +1,24 @@
 package project.dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import project.domain.Employee;
 import project.domain.Opportunity;
+import project.domain.enums.OpportunityType;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
-public interface OpportunityRepository {
+public interface OpportunityRepository extends JpaRepository<Opportunity, Long> {
+    @Query("select o from Opportunity  o where o.sales = :employee")
+    List<Opportunity> findByEmployee(@Param("employee") Employee employee);
 
-    Opportunity save(Opportunity opportunity);
+//    @Query("select o from Opportunity o where o.type = :type")
+    List<Opportunity> findByType(OpportunityType type);
 
-    List<Opportunity> findAll();
-
-    List<Opportunity> findByEmployee(Employee employee);
-
-    List<Opportunity> findByType();
-
-    List<Opportunity> findForPeriodOfTime(LocalDate firstBorder, LocalDate secondBorder);
-
-    Optional<Opportunity> findById(Long id);
-
-    void delete(Long id);
+    @Query("select o from Opportunity o where (" +
+            "o.start between :firstBorder and :secondBorder or o.end between :firstBorder and :secondBorder) " +
+            "or (o.start <= :firstBorder and o.end >= :secondBorder) ")
+    List<Opportunity> findForPeriodOfTime(@Param("firstBorder") Date firstBorder, @Param("secondBorder") Date secondBorder);
 }

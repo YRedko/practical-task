@@ -1,17 +1,18 @@
 package project.dao;
 
+import javafx.scene.control.Pagination;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 import project.domain.Employee;
 
-import java.util.List;
 import java.util.Optional;
 
-public interface EmployeeRepository {
+public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
-    boolean isEmployeeWithFullNameExists(String fullName);
-
-    Employee save(Employee employee);
-
-    List<Employee> findAll();
-
-    Optional<Employee> findEmployeeByFullName(String fullName);
+    @Query("select e from Employee e where e.fullName = :fullName")
+    Optional<Employee> findEmployeeByFullName(@Param("fullName") String fullName);
 }
